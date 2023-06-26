@@ -1,4 +1,4 @@
-import 'package:chat_app/src/screens/auth/signin_screen.dart';
+import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
