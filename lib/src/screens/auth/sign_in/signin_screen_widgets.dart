@@ -1,8 +1,11 @@
-import 'package:chat_app/src/utils/constants/images.dart';
 import 'package:flutter/material.dart';
 
-Form loginForm() {
-  return Form(
+class LoginForm extends StatelessWidget {
+  const LoginForm({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
       child: Container(
     padding: const EdgeInsets.symmetric(vertical: 20),
     child: Column(
@@ -33,7 +36,9 @@ Form loginForm() {
             alignment: Alignment.centerRight,
             child: TextButton(
                 onPressed: () {}, child: const Text("Forget password?"))),
-        SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         SizedBox(
             width: double.infinity,
             child:
@@ -41,33 +46,5 @@ Form loginForm() {
       ],
     ),
   ));
-}
-
-Column loginFooterWidget() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      const Text("OR"),
-      const SizedBox(
-        height: 10,
-      ),
-      SizedBox(
-        width: double.infinity,
-        child: OutlinedButton.icon(
-            onPressed: () {},
-            icon: const Image(image: AssetImage(tGoogleLogoImage),width: 20,),
-            label: const Text("Sign-In with Google")),
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      TextButton(
-          onPressed: () {},
-          child: const Text.rich(
-            TextSpan(text: "Don't have an account? ", children: [
-              TextSpan(text: "Signup", style: TextStyle(color: Colors.blue))
-            ]),
-          ))
-    ],
-  );
+  }
 }

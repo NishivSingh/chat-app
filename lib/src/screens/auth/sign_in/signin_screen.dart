@@ -1,3 +1,4 @@
+import 'package:chat_app/src/reusable_widgets/reusable_form_footer.dart';
 import 'package:chat_app/src/screens/auth/sign_in/signin_screen_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +17,8 @@ class SignIn extends StatelessWidget {
                 height: 200,
                 color: Colors.green,
               ),
-              loginForm(),
-              loginFooterWidget()
+              const LoginForm(),
+              const FormFooterWidget()
             ],
           ),
         ),
