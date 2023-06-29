@@ -1,5 +1,6 @@
 import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
 import 'package:chat_app/src/screens/auth/sign_up/signup_screen.dart';
+import 'package:chat_app/src/utils/constants/size.dart';
 import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class MainScreen extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(defaultSize),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,3 +1,4 @@
+import 'package:chat_app/src/reusable_widgets/reusable_buttons.dart';
 import 'package:chat_app/src/utils/constants/size.dart';
 import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +39,20 @@ class LoginForm extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: TextButton(
                 onPressed: () {
-                  showModalBottomSheet(context: context, builder: (context)=>Container(
+                  showModalBottomSheet(context: context,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    builder: (context)=>Container(
                     padding: const EdgeInsets.all(defaultSize),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(forgetPasswordTitle)
+                        Text(forgetPasswordTitle,style: Theme.of(context).textTheme.displayMedium,),
+                        Text(forgetPasswordSubTitle, style: Theme.of(context).textTheme.bodyMedium),
+                        const SizedBox(height: 30,),
+                        const ResendButton(buttonIcon: Icons.mail_outline_rounded,title: email,subTitle: resetViaEMail,),
+                        const SizedBox(height: 20,),
+                        const ResendButton(buttonIcon: Icons.mobile_friendly_rounded,title: phoneNo,subTitle: resetViaPhone,),
+
                       ],
                     ),
                   ));
@@ -60,3 +69,4 @@ class LoginForm extends StatelessWidget {
   ));
   }
 }
+
