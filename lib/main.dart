@@ -1,3 +1,4 @@
+import 'package:chat_app/src/screens/auth/main_screen.dart';
 import 'package:chat_app/src/screens/auth/sign_up/signup_screen.dart';
 import 'package:chat_app/src/utils/themes/theme.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const SignUp(),
+      home: const MainScreen(),
     );
   }
 }

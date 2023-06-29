@@ -1,6 +1,8 @@
 import 'package:chat_app/src/reusable_widgets/reusable_form_footer.dart';
-import 'package:chat_app/src/screens/auth/sign_up/signip_screen_widgets.dart';
+import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
+import 'package:chat_app/src/screens/auth/sign_up/signup_screen_widgets.dart';
 import 'package:chat_app/src/utils/constants/size.dart';
+import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatelessWidget {
@@ -21,7 +23,7 @@ class SignUp extends StatelessWidget {
                   color: Colors.yellow,
                 ),
                 const SignUpForm(),
-                const FormFooterWidget()
+                FormFooterWidget(text1: alreadyHaveAnAccount, text2: login.toUpperCase(),page: const SignIn(),)
               ],
             ),
           ),

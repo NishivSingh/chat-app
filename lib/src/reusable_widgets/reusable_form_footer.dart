@@ -1,8 +1,12 @@
 import 'package:chat_app/src/utils/constants/images.dart';
+import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
 
 class FormFooterWidget extends StatelessWidget {
-  const FormFooterWidget ({super.key});
+  final String text1;
+  final String text2;
+  final Widget page;
+  const FormFooterWidget ({super.key, required this.text1, required this.text2, required this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +25,23 @@ class FormFooterWidget extends StatelessWidget {
               image: AssetImage(tGoogleLogoImage),
               width: 20,
             ),
-            label: const Text("Sign-In with Google")),
+            label: const Text(signInWithGoogle)),
       ),
       const SizedBox(
         height: 10,
       ),
       TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+          },
           child:Text.rich(
-            TextSpan(text: "Don't have an account? ",
+            TextSpan(text: text1,
             style: Theme.of(context).textTheme.bodyLarge,
-            children: const [
-              TextSpan(text: "Signup", style: TextStyle(color: Colors.blue))
+            children:[
+              TextSpan(text: text2, style: const TextStyle(color: Colors.blue))
             ]),
           ))
     ],
   );
-
   }
 }

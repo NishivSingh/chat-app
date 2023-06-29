@@ -1,3 +1,4 @@
+import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -14,35 +15,35 @@ class SignUpForm extends StatelessWidget {
         children: [
           TextFormField(
             decoration: const InputDecoration(
-                label: Text("Full Name"),
+                label: Text(fullName),
                 prefixIcon: Icon(Icons.person_outline_rounded),
             )
           ),
           const SizedBox(height: 10,),
           TextFormField(
             decoration: const InputDecoration(
-                label: Text("E-mail"),
+                label: Text(email),
                 prefixIcon: Icon(Icons.email_outlined),
             )
           ),
           const SizedBox(height: 10,),
           TextFormField(
             decoration: const InputDecoration(
-                label: Text("Phone no."),
+                label: Text(phoneNo),
                 prefixIcon: Icon(Icons.numbers),
             )
           ),
           const SizedBox(height: 10,),
           TextFormField(
             decoration: const InputDecoration(
-                label: Text("Password"),
+                label: Text(password),
                 prefixIcon: Icon(Icons.fingerprint),
             )
           ),
           const SizedBox(height: 10,),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(onPressed: (){},child: const Text("SIGNUP"),),
+            child: ElevatedButton(onPressed: (){},child: Text(signUp.toUpperCase()),),
           )
         ],
       )),

@@ -1,4 +1,6 @@
 import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
+import 'package:chat_app/src/screens/auth/sign_up/signup_screen.dart';
+import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
@@ -21,9 +23,11 @@ class MainScreen extends StatelessWidget {
               children: [
                 Expanded(child: OutlinedButton(onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const SignIn()));
-                }, child: const Text("LOGIN"))),
+                }, child: Text(login.toUpperCase()))),
                 const SizedBox(width: 50,),
-                Expanded(child: ElevatedButton(onPressed: (){}, child: const Text("SIGNUP"))),
+                Expanded(child: ElevatedButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()));
+                }, child: Text(signUp.toUpperCase()))),
               ],
             )
           ],
