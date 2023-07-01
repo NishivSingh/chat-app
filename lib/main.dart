@@ -1,5 +1,4 @@
 import 'package:chat_app/src/screens/auth/main_screen.dart';
-import 'package:chat_app/src/screens/auth/sign_up/signup_screen.dart';
 import 'package:chat_app/src/utils/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

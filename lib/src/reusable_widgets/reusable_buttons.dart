@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ResendButton extends StatelessWidget {
+class ResetButton extends StatelessWidget {
   final IconData buttonIcon;
   final String title;
   final String subTitle;
-  const ResendButton({
-    super.key, required this.buttonIcon, required this.title, required this.subTitle,
+  final Widget page;
+  const ResetButton({
+    super.key, required this.buttonIcon, required this.title, required this.subTitle, required this.page,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      },
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration( 
