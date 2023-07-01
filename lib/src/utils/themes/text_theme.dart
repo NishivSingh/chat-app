@@ -6,24 +6,24 @@ class CustomTextTheme{
   CustomTextTheme._();
 
   static TextTheme lightTextTheme = TextTheme(
-    displayLarge: GoogleFonts.montserrat(fontSize: 28,fontWeight: FontWeight.bold,color: tDarkColor),
-    displayMedium: GoogleFonts.montserrat(fontSize: 24,fontWeight: FontWeight.w700,color: tDarkColor),
-    displaySmall: GoogleFonts.poppins(fontSize: 24,fontWeight: FontWeight.w700,color: tDarkColor),
-    headlineMedium: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: tDarkColor),
-    headlineSmall: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: tDarkColor),
-    titleLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w600,color: tDarkColor),
-    bodyLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: tDarkColor),
-    bodyMedium: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: tDarkColor),
+    displayLarge: GoogleFonts.montserrat(fontSize: 28,fontWeight: FontWeight.bold,color: darkColor),
+    displayMedium: GoogleFonts.montserrat(fontSize: 24,fontWeight: FontWeight.w700,color: darkColor),
+    displaySmall: GoogleFonts.poppins(fontSize: 24,fontWeight: FontWeight.w700,color: darkColor),
+    headlineMedium: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: darkColor),
+    headlineSmall: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: darkColor),
+    titleLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w600,color: darkColor),
+    bodyLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: darkColor),
+    bodyMedium: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: darkColor),
   );
   static TextTheme darkTextTheme = TextTheme(
-    displayLarge: GoogleFonts.montserrat(fontSize: 28,fontWeight: FontWeight.bold,color: tWhiteColor),
-    displayMedium: GoogleFonts.montserrat(fontSize: 24,fontWeight: FontWeight.w700,color: tWhiteColor),
-    displaySmall: GoogleFonts.poppins(fontSize: 24,fontWeight: FontWeight.w700,color: tWhiteColor),
-    headlineMedium: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: tWhiteColor),
-    headlineSmall: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: tWhiteColor),
-    titleLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w600,color: tWhiteColor),
-    bodyLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: tWhiteColor),
-    bodyMedium: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: tWhiteColor),
+    displayLarge: GoogleFonts.montserrat(fontSize: 28,fontWeight: FontWeight.bold,color: whiteColor),
+    displayMedium: GoogleFonts.montserrat(fontSize: 24,fontWeight: FontWeight.w700,color: whiteColor),
+    displaySmall: GoogleFonts.poppins(fontSize: 24,fontWeight: FontWeight.w700,color: whiteColor),
+    headlineMedium: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: whiteColor),
+    headlineSmall: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w600,color: whiteColor),
+    titleLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w600,color: whiteColor),
+    bodyLarge: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: whiteColor),
+    bodyMedium: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.normal,color: whiteColor),
   );
   
 }

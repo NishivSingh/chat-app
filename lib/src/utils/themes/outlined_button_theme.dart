@@ -8,16 +8,16 @@ class CustomOutlinedButtonTheme{
   static final lightOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      foregroundColor: tSecondaryColor,
-      side: const BorderSide(color: tSecondaryColor),
+      foregroundColor: secondaryColor,
+      side: const BorderSide(color: secondaryColor),
       padding: const EdgeInsets.symmetric(vertical: buttonheight)
     )
   );
   static final darkOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      foregroundColor: tWhiteColor,
-      side: const BorderSide(color: tWhiteColor),
+      foregroundColor: whiteColor,
+      side: const BorderSide(color: whiteColor),
       padding: const EdgeInsets.symmetric(vertical: buttonheight)
     )
   );
