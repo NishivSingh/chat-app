@@ -22,8 +22,12 @@ class SignUp extends StatelessWidget {
                   height: 200,
                   color: Colors.yellow,
                 ),
-                const SignUpForm(),
-                FormFooterWidget(text1: alreadyHaveAnAccount, text2: login.toUpperCase(),page: const SignIn(),)
+                SignUpForm(),
+                FormFooterWidget(
+                  text1: alreadyHaveAnAccount,
+                  text2: login.toUpperCase(),
+                  page: const SignIn(),
+                )
               ],
             ),
           ),
