@@ -1,20 +1,33 @@
+import 'dart:async';
+
 import 'package:chat_app/src/screens/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/src/screens/auth/widget_tree.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key});
+  const HomeScreen({super.key});
 
   Future<void> _signOut(BuildContext context) async {
+    final completer = Completer<void>();
+
     try {
       await Auth().signOut();
+      completer.complete();
+    } catch (e) {
+      // ignore: avoid_print
+      print('Error signing out: $e');
+      completer.completeError(e);
+    }
+
+    completer.future.then((_) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const WidgetTree()),
       );
-    } catch (e) {
-      print('Error signing out: $e');
-    }
+    }).catchError((error) {
+      // ignore: avoid_print
+      print('Error completing sign out: $error');
+    });
   }
 
   @override

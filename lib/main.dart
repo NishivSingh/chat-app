@@ -1,4 +1,3 @@
-import 'package:chat_app/src/screens/auth/main_screen.dart';
 import 'package:chat_app/src/screens/auth/widget_tree.dart';
 import 'package:chat_app/src/utils/themes/theme.dart';
 import 'package:flutter/material.dart';

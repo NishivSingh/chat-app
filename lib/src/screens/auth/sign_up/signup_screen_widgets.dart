@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:chat_app/src/screens/auth/auth.dart';
 import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
-import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,79 +13,85 @@ class SignUpForm extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> createUserWithEmailAndPassword() async {
+  SignUpForm({super.key});
+
+  Future<void> createUserWithEmailAndPassword(BuildContext context) async {
+    final completer = Completer<void>();
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
     try {
-      await Auth().createUserWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
+      await Auth()
+          .createUserWithEmailAndPassword(email: email, password: password);
+      completer.complete();
     } on FirebaseAuthException catch (e) {
-      print("Hi");
+      // ignore: avoid_print
       print(e);
     }
-  }
 
-  SignUpForm({Key? key}) : super(key: key);
+    completer.future.then((_) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SignIn()),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                  controller: _fullNameController,
-                  decoration: const InputDecoration(
-                    label: Text(fullName),
-                    prefixIcon: Icon(Icons.person_outline_rounded),
-                  )),
-              const SizedBox(
-                height: 10,
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _fullNameController,
+              decoration: const InputDecoration(
+                labelText: 'Full Name',
+                prefixIcon: Icon(Icons.person_outline_rounded),
               ),
-              TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    label: Text(email),
-                    prefixIcon: Icon(Icons.email_outlined),
-                  )),
-              const SizedBox(
-                height: 10,
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                prefixIcon: Icon(Icons.email_outlined),
               ),
-              TextFormField(
-                  controller: _phoneNoController,
-                  decoration: const InputDecoration(
-                    label: Text(phoneNo),
-                    prefixIcon: Icon(Icons.numbers),
-                  )),
-              const SizedBox(
-                height: 10,
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _phoneNoController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                prefixIcon: Icon(Icons.numbers),
               ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  label: Text(password),
-                  prefixIcon: Icon(Icons.fingerprint),
-                ),
-                obscureText: true,
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                prefixIcon: Icon(Icons.fingerprint),
               ),
-              const SizedBox(
-                height: 10,
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    createUserWithEmailAndPassword(context);
+                  }
+                },
+                child: Text('Sign Up'.toUpperCase()),
               ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      await createUserWithEmailAndPassword();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SignIn()));
-                    }
-                  },
-                  child: Text(signUp.toUpperCase()),
-                ),
-              )
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

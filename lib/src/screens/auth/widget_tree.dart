@@ -1,13 +1,11 @@
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/auth/main_screen.dart';
 import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
-import 'package:chat_app/src/screens/auth/sign_up/signup_screen.dart';
 import 'package:chat_app/src/screens/profile/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class WidgetTree extends StatefulWidget {
-  const WidgetTree({Key? key});
+  const WidgetTree({super.key});
 
   @override
   State<WidgetTree> createState() => _WidgetTreeState();
