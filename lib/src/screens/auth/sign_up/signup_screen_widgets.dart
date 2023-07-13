@@ -1,17 +1,28 @@
+import 'package:chat_app/src/screens/auth/auth.dart';
+import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
 import 'package:chat_app/src/utils/constants/text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpForm extends StatelessWidget {
-  final fullNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneNoController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneNoController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
-  SignUpForm({
-    super.key,
-  });
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      print("Hi");
+      print(e);
+    }
+  }
+
+  SignUpForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +33,7 @@ class SignUpForm extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                  controller: fullNameController,
+                  controller: _fullNameController,
                   decoration: const InputDecoration(
                     label: Text(fullName),
                     prefixIcon: Icon(Icons.person_outline_rounded),
@@ -31,7 +42,7 @@ class SignUpForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                  controller: emailController,
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     label: Text(email),
                     prefixIcon: Icon(Icons.email_outlined),
@@ -40,7 +51,7 @@ class SignUpForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                  controller: phoneNoController,
+                  controller: _phoneNoController,
                   decoration: const InputDecoration(
                     label: Text(phoneNo),
                     prefixIcon: Icon(Icons.numbers),
@@ -49,21 +60,25 @@ class SignUpForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    label: Text(password),
-                    prefixIcon: Icon(Icons.fingerprint),
-                  )),
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                  label: Text(password),
+                  prefixIcon: Icon(Icons.fingerprint),
+                ),
+                obscureText: true,
+              ),
               const SizedBox(
                 height: 10,
               ),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // if (_formKey.currentState.validate()){
-                    //   registerUser(emailController.text, passwordController.text);
-                    // }
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await createUserWithEmailAndPassword();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SignIn()));
+                    }
                   },
                   child: Text(signUp.toUpperCase()),
                 ),
@@ -73,5 +88,3 @@ class SignUpForm extends StatelessWidget {
     );
   }
 }
-
-void registerUser(String email, String password) {}

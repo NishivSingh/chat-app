@@ -20,8 +20,12 @@ class SignIn extends StatelessWidget {
                 height: 200,
                 color: Colors.green,
               ),
-              const LoginForm(),
-              const FormFooterWidget(text1: dontHaveAnAccount,text2:signUp,page: SignUp(),)
+              LoginForm(),
+              const FormFooterWidget(
+                text1: dontHaveAnAccount,
+                text2: signUp,
+                page: SignUp(),
+              )
             ],
           ),
         ),
