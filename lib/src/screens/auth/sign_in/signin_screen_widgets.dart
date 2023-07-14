@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:chat_app/src/screens/auth/auth.dart';
+import 'package:chat_app/src/screens/auth/forget_password/forget_password_modal_widget.dart';
+import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/src/screens/profile/home_screen.dart';
@@ -10,6 +12,23 @@ class LoginForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   LoginForm({super.key});
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    if (!value.contains('@') || !value.contains('.')) {
+      return 'Invalid email format';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    return null;
+  }
 
   Future<void> signInWithEmailAndPassword(BuildContext context) async {
     final completer = Completer<void>();
@@ -57,6 +76,7 @@ class LoginForm extends StatelessWidget {
                 hintText: 'Enter your email',
                 border: OutlineInputBorder(),
               ),
+              validator: _validateEmail,
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -72,8 +92,19 @@ class LoginForm extends StatelessWidget {
                   icon: Icon(Icons.remove_red_eye_sharp),
                 ),
               ),
+              validator: _validatePassword,
             ),
             const SizedBox(height: 10),
+            Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: () {
+                      ForgetPassword.forgetPasswordModal(context);
+                    },
+                    child: const Text(forgetPassword))),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

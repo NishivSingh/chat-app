@@ -13,6 +13,43 @@ class SignUpForm extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  String? _validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Name is required';
+    }
+    return null;
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    if (!value.contains('@') || !value.contains('.')) {
+      return 'Invalid email format';
+    }
+    return null;
+  }
+
+  String? _validatePhoneNo(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone no. is required';
+    }
+    if (value.length < 10) {
+      return 'Invalid phone no.';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    if (value.length < 6) {
+      return 'Password must be greater than 6 characters';
+    }
+    return null;
+  }
+
   SignUpForm({super.key});
 
   Future<void> createUserWithEmailAndPassword(BuildContext context) async {
@@ -63,6 +100,7 @@ class SignUpForm extends StatelessWidget {
                 labelText: 'Full Name',
                 prefixIcon: Icon(Icons.person_outline_rounded),
               ),
+              validator: _validateName,
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -71,6 +109,7 @@ class SignUpForm extends StatelessWidget {
                 labelText: 'Email',
                 prefixIcon: Icon(Icons.email_outlined),
               ),
+              validator: _validateEmail,
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -79,6 +118,7 @@ class SignUpForm extends StatelessWidget {
                 labelText: 'Phone Number',
                 prefixIcon: Icon(Icons.numbers),
               ),
+              validator: _validatePhoneNo,
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -88,6 +128,7 @@ class SignUpForm extends StatelessWidget {
                 labelText: 'Password',
                 prefixIcon: Icon(Icons.fingerprint),
               ),
+              validator: _validatePassword,
             ),
             const SizedBox(height: 10),
             SizedBox(
