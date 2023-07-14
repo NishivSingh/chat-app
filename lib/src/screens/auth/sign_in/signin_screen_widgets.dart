@@ -18,11 +18,18 @@ class LoginForm extends StatelessWidget {
 
     try {
       await Auth().signInWithEmailAndPassword(email: email, password: password);
-      if (Auth().currentUser != null) {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null && user.emailVerified) {
         completer.complete();
+      } else {
+        await Auth().signOut(); // Sign out the user if email is not verified
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Please verify your email before logging in.')),
+        );
       }
     } on FirebaseAuthException catch (e) {
-      // ignore: avoid_print
       print(e);
     }
 

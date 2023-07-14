@@ -23,6 +23,18 @@ class SignUpForm extends StatelessWidget {
     try {
       await Auth()
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Send email verification
+      final user = Auth().currentUser;
+      if (user != null && !user.emailVerified) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please check your inbox for email verification.'),
+          ),
+        );
+        await user.sendEmailVerification();
+      }
+
       completer.complete();
     } on FirebaseAuthException catch (e) {
       // ignore: avoid_print
