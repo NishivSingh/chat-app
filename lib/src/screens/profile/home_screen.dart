@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chat_app/src/screens/auth/auth.dart';
+import 'package:chat_app/src/screens/profile/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/src/screens/auth/widget_tree.dart';
 
@@ -44,7 +45,16 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: const Text("Hello World!"),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ChatPage()));
+          },
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Move to main screen"),
+          ),
+        ),
       ),
     );
   }
