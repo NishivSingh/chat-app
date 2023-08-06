@@ -1,17 +1,28 @@
 import 'dart:async';
 
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
+import 'package:chat_app/src/screens/profile/home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignUpForm extends StatelessWidget {
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _SignUpFormState createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<SignUpForm> {
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneNoController = TextEditingController();
   final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String? _validateName(String? value) {
     if (value == null || value.isEmpty) {
@@ -50,8 +61,6 @@ class SignUpForm extends StatelessWidget {
     return null;
   }
 
-  SignUpForm({super.key});
-
   Future<void> createUserWithEmailAndPassword(BuildContext context) async {
     final completer = Completer<void>();
     final email = _emailController.text;
@@ -64,8 +73,9 @@ class SignUpForm extends StatelessWidget {
       // Send email verification
       final user = Auth().currentUser;
       if (user != null && !user.emailVerified) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Please check your inbox for email verification.'),
           ),
         );
@@ -73,17 +83,90 @@ class SignUpForm extends StatelessWidget {
       }
 
       completer.complete();
-    } on FirebaseAuthException catch (e) {
-      // ignore: avoid_print
-      print(e);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message),
+        ),
+      );
+    } catch (e) {
+      // Handle other unexpected exceptions
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              Text('An unexpected error occurred. Please try again later.'),
+        ),
+      );
     }
 
     completer.future.then((_) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SignIn()),
-      );
+      // Continue showing the loading screen until the email is verified.
+      _showLoadingDialog(context);
+
+      // Wait for email verification process to complete.
+      _waitForEmailVerification(context);
     });
+  }
+
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  Future<void> _waitForEmailVerification(BuildContext context) async {
+    final user = Auth().currentUser;
+    if (user != null) {
+      await user.reload();
+      if (user.emailVerified) {
+        await _storeUserDataInFirestore(user);
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context); // Close the loading dialog
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        // Wait and check again after a short delay (e.g., 2 seconds).
+        await Future.delayed(const Duration(seconds: 2));
+        // ignore: use_build_context_synchronously
+        _waitForEmailVerification(context);
+      }
+    }
+  }
+
+  Future<void> _storeUserDataInFirestore(User user) async {
+    String currentUid = user.uid;
+    try {
+      await _firestore.collection("users").doc(currentUid).set({
+        "name": _fullNameController.text,
+        "email": _emailController.text,
+        "phoneNo": _phoneNoController.text,
+      });
+    } catch (e) {
+      // Handle any errors that occurred during Firestore data storage
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred while storing user data.'),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneNoController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -110,15 +193,19 @@ class SignUpForm extends StatelessWidget {
                 prefixIcon: Icon(Icons.email_outlined),
               ),
               validator: _validateEmail,
+              keyboardType: TextInputType.emailAddress,
+              autofillHints: const [AutofillHints.email],
             ),
             const SizedBox(height: 10),
             TextFormField(
               controller: _phoneNoController,
               decoration: const InputDecoration(
                 labelText: 'Phone Number',
-                prefixIcon: Icon(Icons.numbers),
+                prefixIcon: Icon(Icons.phone),
               ),
               validator: _validatePhoneNo,
+              keyboardType: TextInputType.phone,
+              autofillHints: const [AutofillHints.telephoneNumber],
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -126,9 +213,10 @@ class SignUpForm extends StatelessWidget {
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Password',
-                prefixIcon: Icon(Icons.fingerprint),
+                prefixIcon: Icon(Icons.lock),
               ),
               validator: _validatePassword,
+              autofillHints: const [AutofillHints.newPassword],
             ),
             const SizedBox(height: 10),
             SizedBox(

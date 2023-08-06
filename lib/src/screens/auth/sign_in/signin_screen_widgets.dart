@@ -42,14 +42,25 @@ class LoginForm extends StatelessWidget {
       if (user != null && user.emailVerified) {
         completer.complete();
       } else {
-        await Auth().signOut(); // Sign out the user if email is not verified
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Please verify your email before logging in.')),
+          const SnackBar(
+            content: Text('Please verify your email before logging in.'),
+          ),
         );
       }
-    } on FirebaseAuthException catch (e) {
-      print(e);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              Text('An unexpected error occurred. Please try again later.'),
+        ),
+      );
     }
 
     completer.future.then((_) {
