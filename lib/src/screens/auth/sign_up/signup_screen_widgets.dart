@@ -149,6 +149,8 @@ class _SignUpFormState extends State<SignUpForm> {
         "name": _fullNameController.text,
         "email": _emailController.text,
         "phoneNo": _phoneNoController.text,
+        "connections": [],
+        "uid": currentUid,
       });
     } catch (e) {
       // Handle any errors that occurred during Firestore data storage
