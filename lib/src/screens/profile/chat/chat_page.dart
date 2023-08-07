@@ -66,42 +66,59 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildMessageInput() {
-    return Row(
-      children: [
-        Expanded(
-            child: TextField(
-          controller: _messageController,
-          obscureText: false,
-        )),
-        IconButton(
-          onPressed: sendMessage,
-          icon: const Icon(Icons.arrow_forward),
-          iconSize: 40,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+              child: Card(
+            elevation: 8,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: TextField(
+                  controller: _messageController,
+                  obscureText: false,
+                  decoration: const InputDecoration(
+                    hintText: "Type your message here...",
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                  )),
+            ),
+          )),
+          IconButton(
+            onPressed: sendMessage,
+            icon: const Icon(Icons.arrow_forward),
+            iconSize: 40,
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-
-    var alignment = (data["senderId"] == Auth().currentUser!.uid)
-        ? Alignment.centerRight
-        : Alignment.centerLeft;
-    var crossAxisAlignment = (data["senderId"] == Auth().currentUser!.uid)
-        ? CrossAxisAlignment.end
-        : CrossAxisAlignment.start;
-    var mainAxisAlignment = (data["senderId"] == Auth().currentUser!.uid)
-        ? MainAxisAlignment.end
-        : MainAxisAlignment.start;
+    final isCurrentUser = (data["senderId"] == Auth().currentUser!.uid);
+    var alignment =
+        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
+    var crossAxisAlignment =
+        isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    var mainAxisAlignment =
+        isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(1),
       child: Container(
         alignment: alignment,
         child: Column(
             crossAxisAlignment: crossAxisAlignment,
             mainAxisAlignment: mainAxisAlignment,
-            children: [ChatBubble(message: data["message"])]),
+            children: [
+              ChatBubble(
+                message: data["message"],
+                senderId: data["senderId"],
+              )
+            ]),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:chat_app/src/utils/themes/app_bar.dart';
 import 'package:chat_app/src/utils/themes/elevated_button_theme.dart';
 import 'package:chat_app/src/utils/themes/input_decoration_theme.dart';
 import 'package:chat_app/src/utils/themes/outlined_button_theme.dart';
@@ -10,20 +11,20 @@ class TAppTheme {
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       textTheme: CustomTextTheme.lightTextTheme,
-      appBarTheme: const AppBarTheme(),
+      appBarTheme: CustomAppBarTheme.lightAppBarTheme,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(),
       elevatedButtonTheme: CustomElevatedButtonTheme.lightElevatedButtonTheme,
       outlinedButtonTheme: CustomOutlinedButtonTheme.lightOutlinedButtonTheme,
-      inputDecorationTheme: CustomInputDecorationTheme.lightInputDecorationTheme
-      );
+      inputDecorationTheme:
+          CustomInputDecorationTheme.lightInputDecorationTheme);
 
   static ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
       textTheme: CustomTextTheme.darkTextTheme,
-      appBarTheme: const AppBarTheme(),
+      appBarTheme: CustomAppBarTheme.darkAppBarTheme,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(),
       elevatedButtonTheme: CustomElevatedButtonTheme.darkElevatedButtonTheme,
       outlinedButtonTheme: CustomOutlinedButtonTheme.darkOutlinedButtonTheme,
-      inputDecorationTheme: CustomInputDecorationTheme.darkInputDecorationTheme
-      );
+      inputDecorationTheme:
+          CustomInputDecorationTheme.darkInputDecorationTheme);
 }
