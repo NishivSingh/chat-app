@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:chat_app/src/screens/auth/auth.dart';
 import 'package:chat_app/src/screens/profile/chat/chat_page.dart';
+import 'package:chat_app/src/screens/profile/chat/chat_screen.dart';
+import 'package:chat_app/src/screens/profile/connect/connect_screen.dart';
+import 'package:chat_app/src/screens/profile/profile/profile_screen.dart';
+import 'package:chat_app/src/utils/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +19,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  int _currentIndex = 0; // Current index of the selected tab
+
+  final List<Widget> _pages = [
+    const ChatScreen(), // Chats page (replace with your HomeScreen)
+    const ConnectScreen(), // Replace with your ContactsScreen
+    const ProfileScreen(), // Replace with your SettingsScreen
+  ];
+
+  final List<String> _titles = ["Chats", "Connect with others", "Profile"];
 
   Future<void> _signOut(BuildContext context) async {
     final completer = Completer<void>();
@@ -44,7 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Text(
+          _titles[_currentIndex],
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -52,87 +67,34 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _buildUserList(),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 16),
+        child: _pages[_currentIndex], // Show the current page
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Change the current tab index
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Chats',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.connect_without_contact),
+            label: 'Connect',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildUserList() {
-    return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance
-          .collection("users")
-          .doc(_auth.currentUser!.uid) // Get the current user's document
-          .get(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("loading ....");
-        }
-
-        if (snapshot.hasError) {
-          return const Text("error");
-        }
-
-        List<String> connectedUserIds = [];
-        if (snapshot.hasData) {
-          // Get the list of connected user IDs from the "connections" field
-          Map<String, dynamic> data =
-              snapshot.data!.data()! as Map<String, dynamic>;
-          if (data.containsKey("connections") && data["connections"] is List) {
-            connectedUserIds = List<String>.from(data["connections"]);
-          }
-        }
-        if (connectedUserIds.isEmpty) {
-          return const Text("No connected users found.");
-        }
-
-        return StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection("users")
-              .where(FieldPath.documentId,
-                  whereIn: connectedUserIds) // Query only connected users
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text("loading ....");
-            }
-
-            if (snapshot.hasError) {
-              return const Text("error");
-            }
-
-            if (!snapshot.hasData) {
-              return const Text("No connected users found.");
-            }
-
-            List<DocumentSnapshot> connectedUsers = snapshot.data!.docs;
-            if (connectedUsers.isEmpty) {
-              return const Text("No connected users found.");
-            }
-
-            return ListView(
-              children: connectedUsers
-                  .map<Widget>((doc) => _buildUserListItem(doc))
-                  .toList(),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  Widget _buildUserListItem(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-    return ListTile(
-      title: Text(data["name"]),
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => ChatPage(
-                      recieverUserName: data["name"],
-                      recieverUserEmail: data["email"],
-                      recieverUserId: data["uid"],
-                    ))));
-      },
-    );
-  }
+  // ...
 }

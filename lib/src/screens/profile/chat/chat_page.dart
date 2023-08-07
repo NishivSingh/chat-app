@@ -1,8 +1,11 @@
 import 'package:chat_app/src/screens/auth/auth.dart';
 import 'package:chat_app/src/screens/profile/chat/chat_bubble.dart';
 import 'package:chat_app/src/screens/profile/chat/chat_service.dart';
+import 'package:chat_app/src/utils/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:grouped_list/grouped_list.dart';
 
 class ChatPage extends StatefulWidget {
   final String recieverUserName;
@@ -33,18 +36,24 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkTheme = theme.brightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(title: Text(widget.recieverUserName)),
+      appBar: AppBar(
+          title: Text(
+        widget.recieverUserName,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      )),
       body: Column(children: [
         Expanded(
-          child: _buildMessageList(),
+          child: _buildMessageList(isDarkTheme),
         ),
-        _buildMessageInput(),
+        _buildMessageInput(isDarkTheme),
       ]),
     );
   }
 
-  Widget _buildMessageList() {
+  Widget _buildMessageList(isDarkTheme) {
     return StreamBuilder(
       stream: _chatService.getMessages(
           widget.recieverUserId, Auth().currentUser!.uid),
@@ -53,19 +62,59 @@ class _ChatPageState extends State<ChatPage> {
           return Text("Error ${snapshot.error}");
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading ...");
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
-        return ListView(
-          children: snapshot.data!.docs
-              .map((document) => _buildMessageItem(document))
+        return GroupedListView<Map<String, dynamic>, DateTime>(
+          padding: const EdgeInsets.all(2),
+          reverse: true,
+          order: GroupedListOrder.DESC,
+          // useStickyGroupSeparators: true,
+          // floatingHeader: true,
+          elements: snapshot.data!.docs
+              .map((doc) => doc.data() as Map<String, dynamic>)
               .toList(),
+          groupBy: (document) {
+            // Group messages by their date (ignoring time)
+            DateTime timestamp = document['timestamp'].toDate();
+            return DateTime(timestamp.year, timestamp.month, timestamp.day);
+          },
+          groupSeparatorBuilder: (DateTime date) {
+            // Build a widget for the date separator
+            return ListTile(
+              title: Center(
+                child: Card(
+                  color: isDarkTheme ? primaryColor : accentColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      DateFormat.yMd().format(
+                          date), // Display date in 'Month Day, Year' format
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: isDarkTheme ? secondaryColor : whiteColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          itemBuilder: (context, Map<String, dynamic> document) {
+            // Build a widget for each chat message
+            return _buildMessageItem(document);
+          },
         );
       },
     );
   }
 
-  Widget _buildMessageInput() {
+  Widget _buildMessageInput(isDarkTheme) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -76,7 +125,7 @@ class _ChatPageState extends State<ChatPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             child: Padding(
-              padding: const EdgeInsets.only(left: 12),
+              padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
               child: TextField(
                   controller: _messageController,
                   obscureText: false,
@@ -87,18 +136,31 @@ class _ChatPageState extends State<ChatPage> {
                   )),
             ),
           )),
-          IconButton(
-            onPressed: sendMessage,
-            icon: const Icon(Icons.arrow_forward),
-            iconSize: 40,
+          Card(
+            elevation: 8,
+            shape: const CircleBorder(),
+            color: isDarkTheme ? primaryColor : accentColor,
+            child: IconButton(
+              onPressed: sendMessage,
+              icon: const Icon(Icons.arrow_forward),
+              color: isDarkTheme ? secondaryColor : whiteColor,
+              iconSize: 40,
+            ),
           )
         ],
       ),
     );
   }
 
-  Widget _buildMessageItem(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+  Widget _buildMessageItem(Map<String, dynamic> data) {
+    // Convert Firestore timestamp to DateTime
+    Timestamp timestamp =
+        data["timestamp"]; // Replace with the actual field name
+    DateTime dateTime = timestamp.toDate();
+
+    // Format the DateTime to show only the time
+    String formattedTime = DateFormat.jm().format(dateTime);
+
     final isCurrentUser = (data["senderId"] == Auth().currentUser!.uid);
     var alignment =
         isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
@@ -117,6 +179,11 @@ class _ChatPageState extends State<ChatPage> {
               ChatBubble(
                 message: data["message"],
                 senderId: data["senderId"],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 5, bottom: 5),
+                child: Text(formattedTime),
               )
             ]),
       ),

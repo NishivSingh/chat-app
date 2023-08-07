@@ -40,6 +40,8 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.4
+  intl: ^0.18.1
+  grouped_list: ^5.1.2
 
 dev_dependencies:
   flutter_test:
