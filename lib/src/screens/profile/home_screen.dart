@@ -1,13 +1,9 @@
 import 'dart:async';
 
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/profile/chat/chat_page.dart';
 import 'package:chat_app/src/screens/profile/chat/chat_screen.dart';
 import 'package:chat_app/src/screens/profile/connect/connect_screen.dart';
 import 'package:chat_app/src/screens/profile/profile/profile_screen.dart';
-import 'package:chat_app/src/utils/constants/colors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/src/screens/auth/widget_tree.dart';
 
@@ -22,9 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0; // Current index of the selected tab
 
   final List<Widget> _pages = [
-    const ChatScreen(), // Chats page (replace with your HomeScreen)
-    const ConnectScreen(), // Replace with your ContactsScreen
-    const ProfileScreen(), // Replace with your SettingsScreen
+    const ChatScreen(),
+    const ConnectScreen(),
+    const ProfileScreen(),
   ];
 
   final List<String> _titles = ["Chats", "Connect with others", "Profile"];
