@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/auth/forget_password/forget_password_modal_widget.dart';
-import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/src/screens/profile/home_screen.dart';
+import 'package:chat_app/src/screens/user_screens/home_screen.dart';
 
 class LoginForm extends StatelessWidget {
   final TextEditingController _controllerEmail = TextEditingController();

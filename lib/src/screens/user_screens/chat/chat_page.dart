@@ -1,6 +1,6 @@
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/profile/chat/chat_bubble.dart';
-import 'package:chat_app/src/screens/profile/chat/chat_service.dart';
+import 'package:chat_app/src/screens/user_screens/chat/chat_bubble.dart';
+import 'package:chat_app/src/screens/user_screens/chat/chat_service.dart';
 import 'package:chat_app/src/utils/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

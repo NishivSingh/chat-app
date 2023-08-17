@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/profile/chat/chat_screen.dart';
-import 'package:chat_app/src/screens/profile/connect/connect_screen.dart';
-import 'package:chat_app/src/screens/profile/profile/profile_screen.dart';
+import 'package:chat_app/src/screens/user_screens/chat/chat_screen.dart';
+import 'package:chat_app/src/screens/user_screens/connect/connect_screen.dart';
+import 'package:chat_app/src/screens/user_screens/profile/profile_screen.dart';
+import 'package:chat_app/src/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/src/screens/auth/widget_tree.dart';
 
@@ -50,6 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDarkTheme = theme.brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -69,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        selectedItemColor: isDarkTheme ? primaryColor : accentColor,
         onTap: (index) {
           setState(() {
             _currentIndex = index; // Change the current tab index
