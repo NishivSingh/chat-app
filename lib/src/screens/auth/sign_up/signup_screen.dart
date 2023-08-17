@@ -1,6 +1,7 @@
 import 'package:chat_app/src/reusable_widgets/reusable_form_footer.dart';
 import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
 import 'package:chat_app/src/screens/auth/sign_up/signup_screen_widgets.dart';
+import 'package:chat_app/src/utils/constants/images.dart';
 import 'package:chat_app/src/utils/constants/size.dart';
 import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -18,11 +20,16 @@ class SignUp extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: 200,
-                  color: Colors.yellow,
+                ClipRRect(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(size.height * 3)),
+                  child: Image(
+                    image: const AssetImage(signUpImage),
+                    height: size.height * 0.3,
+                    // width: size.height * 0.3,
+                  ),
                 ),
-                SignUpForm(),
+                const SignUpForm(),
                 FormFooterWidget(
                   text1: alreadyHaveAnAccount,
                   text2: login.toUpperCase(),

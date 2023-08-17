@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
         }
 
         if (snapshot.hasError) {
-          return const Text("error");
+          return const Center(child: Text("error"));
         }
 
         List<String> connectedUserIds = [];
@@ -53,7 +53,7 @@ class _ChatScreenState extends State<ChatScreen> {
           }
         }
         if (connectedUserIds.isEmpty) {
-          return const Text("No connected users found.");
+          return const Center(child: Text("No connected users found."));
         }
 
         return StreamBuilder<QuerySnapshot>(
@@ -70,16 +70,16 @@ class _ChatScreenState extends State<ChatScreen> {
             }
 
             if (snapshot.hasError) {
-              return const Text("error");
+              return const Center(child: Text("error"));
             }
 
             if (!snapshot.hasData) {
-              return const Text("No connected users found.");
+              return const Center(child: Text("No connected users found."));
             }
 
             List<DocumentSnapshot> connectedUsers = snapshot.data!.docs;
             if (connectedUsers.isEmpty) {
-              return const Text("No connected users found.");
+              return const Center(child: Text("No connected users found."));
             }
 
             return ListView(

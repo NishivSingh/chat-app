@@ -105,16 +105,16 @@ class LoginForm extends StatelessWidget {
               ),
               validator: _validatePassword,
             ),
-            const SizedBox(height: 10),
-            Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                    onPressed: () {
-                      ForgetPassword.forgetPasswordModal(context);
-                    },
-                    child: const Text(forgetPassword))),
+            // const SizedBox(height: 10),
+            // Align(
+            //     alignment: Alignment.centerRight,
+            //     child: TextButton(
+            //         onPressed: () {
+            //           ForgetPassword.forgetPasswordModal(context);
+            //         },
+            //         child: const Text(forgetPassword))),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             SizedBox(
               width: double.infinity,

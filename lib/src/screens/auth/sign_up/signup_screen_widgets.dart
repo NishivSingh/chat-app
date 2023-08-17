@@ -220,7 +220,7 @@ class _SignUpFormState extends State<SignUpForm> {
               validator: _validatePassword,
               autofillHints: const [AutofillHints.newPassword],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
