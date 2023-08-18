@@ -12,11 +12,12 @@ class ChatBubble extends StatelessWidget {
     final isCurrentUser = (senderId == Auth().currentUser!.uid);
     final theme = Theme.of(context);
     final isDarkTheme = theme.brightness == Brightness.dark;
-    final bubbleColor =
-        isCurrentUser ? (isDarkTheme ? primaryColor : accentColor) : whiteColor;
+    final bubbleColor = isCurrentUser
+        ? (isDarkTheme ? darkAccentColor : lightAccentColor)
+        : whiteColor;
     final textColor = isCurrentUser
         ? (isDarkTheme ? darkColor : whiteColor)
-        : (isDarkTheme ? darkColor : accentColor);
+        : (isDarkTheme ? darkColor : lightAccentColor);
 
     return Card(
       elevation: 8,

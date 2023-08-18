@@ -1,5 +1,5 @@
 import 'package:chat_app/src/screens/auth/auth.dart';
-import 'package:chat_app/src/screens/auth/sign_in/signin_screen.dart';
+import 'package:chat_app/src/screens/auth/main_screen.dart';
 import 'package:chat_app/src/screens/user_screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         } else if (snapshot.hasData) {
           return const HomeScreen();
         } else {
-          return const SignIn();
+          return MainScreen();
         }
       },
     );

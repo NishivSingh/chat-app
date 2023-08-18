@@ -99,12 +99,13 @@ class _ConnectScreenState extends State<ConnectScreen> {
                                 elevation: 8,
                                 foregroundColor:
                                     isDarkTheme ? darkColor : whiteColor,
-                                backgroundColor:
-                                    isDarkTheme ? primaryColor : accentColor,
+                                backgroundColor: isDarkTheme
+                                    ? darkAccentColor
+                                    : lightAccentColor,
                                 side: BorderSide(
                                     color: isDarkTheme
-                                        ? primaryColor
-                                        : accentColor),
+                                        ? darkAccentColor
+                                        : lightAccentColor),
                                 padding: const EdgeInsets.all(5),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50))),

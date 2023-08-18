@@ -5,10 +5,10 @@ class CustomAppBarTheme {
   CustomAppBarTheme._();
 
   static const lightAppBarTheme = AppBarTheme(
-    color: accentColor,
+    color: lightAccentColor,
   );
   static const darkAppBarTheme = AppBarTheme(
-    color: primaryColor,
+    color: darkAccentColor,
     foregroundColor: darkColor,
   );
 }

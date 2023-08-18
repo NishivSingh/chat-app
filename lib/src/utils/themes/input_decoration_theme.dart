@@ -7,17 +7,22 @@ class CustomInputDecorationTheme {
   static InputDecorationTheme lightInputDecorationTheme =
       const InputDecorationTheme(
           border: OutlineInputBorder(),
-          prefixIconColor: secondaryColor,
-          floatingLabelStyle: TextStyle(color: secondaryColor),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(width: 0.5, color: lightAccentColor)),
+          prefixIconColor: lightAccentColor,
+          floatingLabelStyle: TextStyle(color: lightAccentColor),
+          fillColor: lightAccentColor,
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: secondaryColor))
-          );
+              borderSide: BorderSide(width: 2, color: lightAccentColor)));
   static InputDecorationTheme darkInputDecorationTheme =
       const InputDecorationTheme(
           border: OutlineInputBorder(),
-          prefixIconColor: primaryColor,
-          floatingLabelStyle: TextStyle(color: primaryColor),
+          prefixIconColor: darkAccentColor,
+          enabledBorder:
+              OutlineInputBorder(
+                  borderSide: BorderSide(width: 0.5, color: darkAccentColor)),
+          floatingLabelStyle: TextStyle(color: darkAccentColor),
+          fillColor: darkAccentColor,
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: primaryColor))
-          );
+              borderSide: BorderSide(width: 2, color: darkAccentColor)));
 }

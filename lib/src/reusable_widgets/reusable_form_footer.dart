@@ -1,5 +1,3 @@
-import 'package:chat_app/src/utils/constants/images.dart';
-import 'package:chat_app/src/utils/constants/text.dart';
 import 'package:flutter/material.dart';
 
 class FormFooterWidget extends StatelessWidget {

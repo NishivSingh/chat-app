@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat_app/src/screens/auth/auth.dart';
 import 'package:chat_app/src/screens/user_screens/home_screen.dart';
+import 'package:chat_app/src/utils/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -182,9 +183,11 @@ class _SignUpFormState extends State<SignUpForm> {
             TextFormField(
               controller: _fullNameController,
               decoration: const InputDecoration(
-                labelText: 'Full Name',
-                prefixIcon: Icon(Icons.person_outline_rounded),
-              ),
+                  labelText: 'Full Name',
+                  prefixIcon: Icon(Icons.person_outline_rounded),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 1, color: lightAccentColor))),
               validator: _validateName,
             ),
             const SizedBox(height: 10),

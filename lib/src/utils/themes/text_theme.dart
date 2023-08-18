@@ -7,21 +7,21 @@ class CustomTextTheme {
 
   static TextTheme lightTextTheme = TextTheme(
     displayLarge: GoogleFonts.montserrat(
-        fontSize: 28, fontWeight: FontWeight.bold, color: accentColor),
+        fontSize: 28, fontWeight: FontWeight.bold, color: darkColor),
     displayMedium: GoogleFonts.montserrat(
-        fontSize: 24, fontWeight: FontWeight.w700, color: accentColor),
+        fontSize: 24, fontWeight: FontWeight.w700, color: darkColor),
     displaySmall: GoogleFonts.poppins(
-        fontSize: 24, fontWeight: FontWeight.w700, color: accentColor),
+        fontSize: 24, fontWeight: FontWeight.w700, color: darkColor),
     headlineMedium: GoogleFonts.poppins(
-        fontSize: 16, fontWeight: FontWeight.w600, color: accentColor),
+        fontSize: 16, fontWeight: FontWeight.w600, color: darkColor),
     headlineSmall: GoogleFonts.poppins(
-        fontSize: 16, fontWeight: FontWeight.w600, color: accentColor),
+        fontSize: 16, fontWeight: FontWeight.w600, color: darkColor),
     titleLarge: GoogleFonts.poppins(
-        fontSize: 14, fontWeight: FontWeight.w600, color: accentColor),
+        fontSize: 14, fontWeight: FontWeight.w600, color: darkColor),
     bodyLarge: GoogleFonts.poppins(
-        fontSize: 14, fontWeight: FontWeight.normal, color: accentColor),
+        fontSize: 14, fontWeight: FontWeight.normal, color: darkColor),
     bodyMedium: GoogleFonts.poppins(
-        fontSize: 14, fontWeight: FontWeight.normal, color: accentColor),
+        fontSize: 14, fontWeight: FontWeight.normal, color: darkColor),
   );
   static TextTheme darkTextTheme = TextTheme(
     displayLarge: GoogleFonts.montserrat(

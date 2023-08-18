@@ -86,7 +86,7 @@ class _ChatPageState extends State<ChatPage> {
             return ListTile(
               title: Center(
                 child: Card(
-                  color: isDarkTheme ? primaryColor : accentColor,
+                  color: isDarkTheme ? darkAccentColor : lightAccentColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
@@ -97,7 +97,7 @@ class _ChatPageState extends State<ChatPage> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: isDarkTheme ? secondaryColor : whiteColor,
+                        color: isDarkTheme ? blackColor : whiteColor,
                       ),
                     ),
                   ),
@@ -130,20 +130,20 @@ class _ChatPageState extends State<ChatPage> {
                   controller: _messageController,
                   obscureText: false,
                   decoration: const InputDecoration(
-                    hintText: "Type your message here...",
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                  )),
+                      hintText: "Type your message here...",
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none)),
             ),
           )),
           Card(
             elevation: 8,
             shape: const CircleBorder(),
-            color: isDarkTheme ? primaryColor : accentColor,
+            color: isDarkTheme ? darkAccentColor : lightAccentColor,
             child: IconButton(
               onPressed: sendMessage,
               icon: const Icon(Icons.arrow_forward),
-              color: isDarkTheme ? secondaryColor : whiteColor,
+              color: isDarkTheme ? blackColor : whiteColor,
               iconSize: 40,
             ),
           )

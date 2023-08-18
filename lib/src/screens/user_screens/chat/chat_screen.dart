@@ -96,30 +96,20 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildUserListItem(DocumentSnapshot document, isDarkTheme) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
     return ListTile(
-      title: Row(
-        children: [
-          Card(
-            shape: const CircleBorder(),
-            color: isDarkTheme ? primaryColor : accentColor,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text(
-                data["name"][0],
-                style: TextStyle(
-                    fontSize: 16,
-                    color: isDarkTheme ? secondaryColor : whiteColor),
-              ),
-            ),
+      leading: Card(
+        shape: const CircleBorder(),
+        color: isDarkTheme ? darkAccentColor : lightAccentColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            data["name"][0],
+            style: TextStyle(
+                fontSize: 16, color: isDarkTheme ? blackColor : whiteColor),
           ),
-          const SizedBox(
-            width: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Text(data["name"]),
-          ),
-        ],
+        ),
       ),
+      title: Text(data["name"]),
+      trailing: const Icon(Icons.arrow_forward_ios_rounded),
       onTap: () {
         Navigator.push(
             context,

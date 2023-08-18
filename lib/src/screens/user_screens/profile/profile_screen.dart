@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:chat_app/src/screens/auth/auth.dart';
+import 'package:chat_app/src/screens/auth/widget_tree.dart';
 import 'package:chat_app/src/utils/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -68,10 +70,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Future<void> _signOut(BuildContext context) async {
+    final completer = Completer<void>();
+
+    try {
+      await Auth().signOut();
+      completer.complete();
+    } catch (e) {
+      // ignore: avoid_print
+      print('Error signing out: $e');
+      completer.completeError(e);
+    }
+
+    completer.future.then((_) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const WidgetTree()),
+      );
+    }).catchError((error) {
+      // ignore: avoid_print
+      print('Error completing sign out: $error');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDarkTheme = theme.brightness == Brightness.dark;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return FutureBuilder(
       future: FirebaseFirestore.instance
@@ -102,11 +128,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text(data["name"][0]),
+                Card(
+                  shape: const CircleBorder(),
+                  color: isDarkTheme ? darkAccentColor : lightAccentColor,
+                  child: Padding(
+                    padding: EdgeInsets.all(screenHeight * 0.05),
+                    child: Text(
+                      data["name"][0],
+                      style: TextStyle(
+                          fontSize: 50,
+                          color: isDarkTheme ? blackColor : whiteColor,
+                          fontWeight: FontWeight.w900),
+                    ),
+                  ),
                 ),
+                // SizedBox(height: screenHeight * 0.001),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -127,8 +163,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderSide: BorderSide(
                                     width: 2,
                                     color: isDarkTheme
-                                        ? primaryColor
-                                        : accentColor)),
+                                        ? darkAccentColor
+                                        : lightAccentColor)),
                           ),
                           enabled: _isEditing,
                           validator: _validateName,
@@ -146,8 +182,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderSide: BorderSide(
                                     width: 2,
                                     color: isDarkTheme
-                                        ? primaryColor
-                                        : accentColor)),
+                                        ? darkAccentColor
+                                        : lightAccentColor)),
                           ),
                           validator: _validateEmail,
                           keyboardType: TextInputType.emailAddress,
@@ -167,8 +203,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderSide: BorderSide(
                                     width: 2,
                                     color: isDarkTheme
-                                        ? primaryColor
-                                        : accentColor)),
+                                        ? darkAccentColor
+                                        : lightAccentColor)),
                           ),
                           validator: _validatePhoneNo,
                           keyboardType: TextInputType.phone,
@@ -180,8 +216,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: 150,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    isDarkTheme ? primaryColor : accentColor,
+                                backgroundColor: isDarkTheme
+                                    ? darkAccentColor
+                                    : lightAccentColor,
                                 shape: const StadiumBorder()),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
@@ -205,12 +242,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
             child: SizedBox(
               width: double.infinity,
               child: GestureDetector(
-                onTap: () {},
-                child: const Text("Logout"),
+                onTap: () {
+                  _signOut(context);
+                },
+                child: const ListTile(
+                  leading: Icon(Icons.logout, color: Colors.red),
+                  title: Text(
+                    "Logout",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: Colors.red,
+                  ),
+                ),
               ),
             ),
           ),
