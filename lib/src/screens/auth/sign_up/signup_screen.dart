@@ -14,16 +14,18 @@ class SignUp extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(defaultSize),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image(
                   image: const AssetImage(signUpImage),
                   height: size.height * 0.3,
-                  // width: size.height * 0.3,
+                  width: size.height * 0.3,
                 ),
                 const SignUpForm(),
                 FormFooterWidget(

@@ -8,7 +8,7 @@ class CustomInputDecorationTheme {
       const InputDecorationTheme(
           border: OutlineInputBorder(),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 0.5, color: lightAccentColor)),
+              borderSide: BorderSide(width: 1, color: lightAccentColor)),
           prefixIconColor: lightAccentColor,
           floatingLabelStyle: TextStyle(color: lightAccentColor),
           fillColor: lightAccentColor,
@@ -20,7 +20,7 @@ class CustomInputDecorationTheme {
           prefixIconColor: darkAccentColor,
           enabledBorder:
               OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.5, color: darkAccentColor)),
+                  borderSide: BorderSide(width: 1, color: darkAccentColor)),
           floatingLabelStyle: TextStyle(color: darkAccentColor),
           fillColor: darkAccentColor,
           focusedBorder: OutlineInputBorder(

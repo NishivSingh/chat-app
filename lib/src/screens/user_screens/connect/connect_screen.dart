@@ -21,6 +21,10 @@ class _ConnectScreenState extends State<ConnectScreen> {
       await userRef.doc(currentUserUid).update({
         'connections': FieldValue.arrayUnion([recipientUid]),
       });
+
+      await userRef.doc(recipientUid).update({
+        'connections': FieldValue.arrayUnion([currentUserUid])
+      });
       // ignore: use_build_context_synchronously
       Navigator.push(
           context,

@@ -12,30 +12,38 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: defaultSize, vertical: defaultSize / 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image(
-                image: const AssetImage(logInImage),
-                height: size.height * 0.3,
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              LoginForm(),
-              const FormFooterWidget(
-                text1: dontHaveAnAccount,
-                text2: signUp,
-                page: SignUp(),
-              )
-            ],
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: defaultSize, vertical: defaultSize / 2),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Image(
+                      image: const AssetImage(logInImage),
+                      height: size.height * 0.3,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.05,
+                ),
+                LoginForm(),
+                const FormFooterWidget(
+                  text1: dontHaveAnAccount,
+                  text2: signUp,
+                  page: SignUp(),
+                )
+              ],
+            ),
           ),
         ),
       ),
