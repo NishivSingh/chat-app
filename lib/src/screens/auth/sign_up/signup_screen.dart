@@ -20,14 +20,10 @@ class SignUp extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ClipRRect(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(size.height * 3)),
-                  child: Image(
-                    image: const AssetImage(signUpImage),
-                    height: size.height * 0.3,
-                    // width: size.height * 0.3,
-                  ),
+                Image(
+                  image: const AssetImage(signUpImage),
+                  height: size.height * 0.3,
+                  // width: size.height * 0.3,
                 ),
                 const SignUpForm(),
                 FormFooterWidget(

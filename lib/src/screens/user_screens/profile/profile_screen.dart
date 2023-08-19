@@ -171,27 +171,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         const SizedBox(height: 15),
                         TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            prefixIcon: const Icon(Icons.email_outlined),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(100),
-                                borderSide: BorderSide(
-                                    width: 2,
-                                    color: isDarkTheme
-                                        ? darkAccentColor
-                                        : lightAccentColor)),
-                          ),
-                          validator: _validateEmail,
-                          keyboardType: TextInputType.emailAddress,
-                          autofillHints: const [AutofillHints.email],
-                          enabled: _isEditing,
-                        ),
-                        const SizedBox(height: 15),
-                        TextFormField(
                           controller: _phoneNoController,
                           decoration: InputDecoration(
                             labelText: 'Phone Number',
@@ -210,6 +189,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           keyboardType: TextInputType.phone,
                           autofillHints: const [AutofillHints.telephoneNumber],
                           enabled: _isEditing,
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: isDarkTheme
+                                        ? darkAccentColor
+                                        : lightAccentColor)),
+                          ),
+                          validator: _validateEmail,
+                          keyboardType: TextInputType.emailAddress,
+                          autofillHints: const [AutofillHints.email],
+                          enabled: false,
                         ),
                         const SizedBox(height: 20),
                         SizedBox(

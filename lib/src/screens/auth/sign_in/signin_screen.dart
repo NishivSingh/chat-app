@@ -13,23 +13,21 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(defaultSize),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: defaultSize, vertical: defaultSize / 2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(size.height * 0.3)),
-                child: const Image(
-                  image: AssetImage(logInImage),
-                  // height: size.height * 0.3,
-                ),
+              Image(
+                image: const AssetImage(logInImage),
+                height: size.height * 0.3,
               ),
               SizedBox(
-                height: 20,
+                height: size.height * 0.01,
               ),
               LoginForm(),
               const FormFooterWidget(
